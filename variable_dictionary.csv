@@ -1,0 +1,34 @@
+field,source,role,transformation_or_definition
+loan_sequence_number,SFLLD origination and performance Loan Sequence Number,join key and mortgage count,Read as string; join monthly records to origination attributes
+credit_score,SFLLD origination Credit Score,cohort assignment,Origination FICO; values outside 300-850 including 9999 are assigned to the NA bucket
+vintage,Annual SFLLD sample file,cohort assignment and sample restriction,Origination year restricted to 1999-2019
+fico_bucket,Derived from credit_score,cohort assignment,FICO<=680; FICO681-740; FICO>740; or NA
+monthly_reporting_period,SFLLD performance Monthly Reporting Period,time key,Parse the YYYYMM reporting month; analysis-count cutoff is 202012
+month,Derived from monthly_reporting_period,time key,Calendar month used for merging macro series and constructing lags
+current_upb,SFLLD performance Current Actual UPB,portfolio weight input,Current unpaid principal balance for an active loan-month
+dlq_status,SFLLD performance Current Loan Delinquency Status,outcome input,Retain as string because RA is nonnumeric
+zero_balance_code,SFLLD performance Zero Balance Code,active-loan rule,A populated code excludes the termination month when EXCLUDE_ZB_MONTH is true
+borrower_assistance_code,SFLLD performance Borrower Assistance Status Code,adjusted benchmark input,F R or T flags an assisted loan-month
+dlq_due_to_disaster,SFLLD performance Delinquency Due to Disaster,adjusted benchmark input,Y flags a disaster-related delinquency loan-month
+dlq_num,Derived from dlq_status,outcome construction,Numeric delinquency status after treating RA separately
+dlq_known,Derived from dlq_status,denominator eligibility,True for a numeric status or RA
+default_flag,Derived from dlq_status,recorded outcome numerator,True when dlq_num is at least 3 or status is RA
+in_fb,Derived from assistance and disaster fields,adjusted outcome construction,True for assistance code F R or T or disaster flag Y
+default_excl_fb,Derived from default_flag and in_fb,primary outcome numerator,default_flag AND NOT in_fb
+active,Derived from performance fields,outcome denominator,Valid known delinquency status with no populated zero-balance code
+n_active,Cohort-month aggregation,cohort size and denominator,Count of active loans by vintage FICO bucket and month
+n_default,Cohort-month aggregation,recorded outcome numerator,Sum of default_flag among active loans
+n_default_excl_fb,Cohort-month aggregation,adjusted outcome numerator,Sum of default_excl_fb among active loans
+default_rate,Derived cohort-month outcome,recorded benchmark,n_default divided by n_active
+default_rate_excl_fb,Derived cohort-month outcome,primary realized benchmark,n_default_excl_fb divided by n_active
+sum_upb,Cohort-month aggregation,portfolio weighting,Sum of current_upb among active loans
+weight,Derived at rollout origin,fixed portfolio weighting,December 2019 cohort sum_upb carried unchanged across each 2020 horizon
+y_lag,Derived cohort-month feature,predictor,Previous consecutive month's default_rate for the same cohort
+unrate_next,FRED UNRATE,predictor and stress input,UNRATE in the outcome month
+vintage_age,Derived from vintage and month,predictor,Months between vintage year and outcome month under the script convention
+UNRATE,FRED monthly unemployment rate,stress path and macro calibration,Seasonally adjusted monthly rate; realized January-December 2020 values form the stress path
+NFCI,Chicago Fed weekly NFCI,confounding calibration proxy,Take the last weekly observation in each month and standardize over 1990-2019
+gamma_A,Derived from UNRATE residuals and lagged NFCI,macro-side confounding calibration,Estimated in 06_calibrate_ch.py
+gamma_Y_ar1_residual,Derived from portfolio delinquency residuals and lagged NFCI,outcome-side calibration specification 1,Portfolio AR(1) residuals regressed on lagged standardized NFCI in 06_calibrate_ch.py
+gamma_Y_prediction_residual,Derived from prediction residuals and lagged NFCI,outcome-side calibration specification 2,Portfolio prediction residuals regressed on lagged standardized NFCI in 06_calibrate_ch.py
+ch_ar1_residual; ch_prediction_residual,Derived from calibrated parameters,two reported confounding envelopes,Horizon-specific half-width additions computed by 06_calibrate_ch.py for the two gamma_Y specifications

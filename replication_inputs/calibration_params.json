@@ -1,0 +1,50 @@
+{
+  "nfci": {
+    "phi_U": 0.9716863653192757,
+    "sigma_nu": 0.2328857316084155,
+    "n": 360
+  },
+  "unrate": {
+    "const": 0.006581663689593532,
+    "phi_A": 0.9980171395329315,
+    "sigma_eta": 0.1538251610833007,
+    "window": "1990-01..2019-12"
+  },
+  "gamma_A": {
+    "est": 0.07148081070065909,
+    "se": 0.006389141495710256,
+    "t": 11.187858454637785,
+    "n": 359
+  },
+  "beta": 0.9995854132863918,
+  "portfolio_persistence": 0.9972685121981152,
+  "stress_path": [
+    3.6,
+    3.5,
+    4.4,
+    14.8,
+    13.2,
+    11.0,
+    10.2,
+    8.4,
+    7.8,
+    6.9,
+    6.7,
+    6.7
+  ],
+  "state_month": "2019-12",
+  "gamma_Y_ar1_residual": {
+    "est": 0.00031626809261750793,
+    "se": 3.2417326857902647e-05,
+    "t": 9.75614349708198,
+    "n": 250,
+    "spec": "portfolio AR(1) residuals on lagged standardized NFCI"
+  },
+  "gamma_Y_prediction_residual": {
+    "est": 0.0002015453417763562,
+    "se": 2.1480517989645535e-05,
+    "t": 9.382703986631471,
+    "n": 250,
+    "spec": "portfolio prediction residuals on lagged standardized NFCI"
+  }
+}

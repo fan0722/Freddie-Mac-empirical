@@ -1,0 +1,7 @@
+Calibration window: 1990-01..2019-12
+NFCI AR(1): phi_U=0.971686, sigma_nu=0.232886
+UNRATE AR(1): phi_A=0.998017, sigma_eta=0.153825
+gamma_A=0.07148081, HC1 SE=0.00638914, t=11.1879, n=359
+gamma_Y, AR(1)-residual specification=0.0003162681, HC1 SE=0.0000324173, t=9.7561, n=250
+gamma_Y, prediction-residual specification=0.0002015453, HC1 SE=0.0000214805, t=9.3827, n=250
+Lagged-outcome coefficient beta=0.99958541

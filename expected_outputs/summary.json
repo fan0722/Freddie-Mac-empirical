@@ -1,0 +1,48 @@
+{
+  "realized_outcome": "90+DPD excluding borrower-assistance and disaster-coded loan-months from the numerator",
+  "starting_cohorts": 62,
+  "weight_month": "2019-12",
+  "coverage_table": [
+    {
+      "method": "Linear ST",
+      "coverage_h1_12": "3/12",
+      "coverage_h1_3": "3/3",
+      "coverage_h4_12": "0/9",
+      "mean_halfwidth": 0.0019329064356387081,
+      "covered_h1_12": "111000000000"
+    },
+    {
+      "method": "EnbPI",
+      "coverage_h1_12": "2/12",
+      "coverage_h1_3": "2/3",
+      "coverage_h4_12": "0/9",
+      "mean_halfwidth": 0.0016471990571090417,
+      "covered_h1_12": "011000000000"
+    },
+    {
+      "method": "Ours (cal)",
+      "coverage_h1_12": "3/12",
+      "coverage_h1_3": "3/3",
+      "coverage_h4_12": "0/9",
+      "mean_halfwidth": 0.0012506316243708498,
+      "covered_h1_12": "111000000000"
+    },
+    {
+      "method": "Ours (full, AR(1) residual)",
+      "coverage_h1_12": "12/12",
+      "coverage_h1_3": "3/3",
+      "coverage_h4_12": "9/9",
+      "mean_halfwidth": 0.012609636302802223,
+      "covered_h1_12": "111111111111"
+    },
+    {
+      "method": "Ours (full, prediction residual)",
+      "coverage_h1_12": "12/12",
+      "coverage_h1_3": "3/3",
+      "coverage_h4_12": "9/9",
+      "mean_halfwidth": 0.00848928305204553,
+      "covered_h1_12": "111111111111"
+    }
+  ],
+  "abstention_from_h": 4
+}
